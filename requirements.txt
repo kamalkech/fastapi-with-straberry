@@ -2,3 +2,8 @@ fastapi
 strawberry-graphql[fastapi]
 uvicorn
 mypy
+cryptography
+python-jose[cryptography]
+passlib[bcrypt]
+types-python-jose
+types-passlib
