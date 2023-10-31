@@ -39,7 +39,7 @@ def get_user_by_id(user_id: int) -> UserType:
 
 
 def create_user(user_input: UserCreateInput) -> UserType:
-    """..."""
+    """...."""
     new_user = UserType(
         id=len(users) + 1,
         name=user_input.name,
