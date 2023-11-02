@@ -1,18 +1,28 @@
 """..."""
+
 import strawberry
 
 
-@strawberry.type
-class UserType:
+@strawberry.input
+class RegisterInput:
     """..."""
+
     name: str
     email: str
     password: str
 
 
 @strawberry.input
-class UserCreateInput:
+class LoginInput:
     """..."""
-    name: str
+
     email: str
     password: str
+
+
+@strawberry.type
+class LoginType:
+    """..."""
+
+    email: str
+    token: str

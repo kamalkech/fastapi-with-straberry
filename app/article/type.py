@@ -1,10 +1,12 @@
-"""."""
+"""..."""
+
 import strawberry
 
 
 @strawberry.type
 class ArticleType:
     """..."""
+
     id: int
     title: str
     content: str
@@ -13,6 +15,7 @@ class ArticleType:
 @strawberry.input
 class ArticleCreateInput:
     """..."""
+
     id: int
     title: str
     content: str

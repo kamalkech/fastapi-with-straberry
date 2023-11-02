@@ -1,9 +1,14 @@
 """..."""
 
-import strawberry
 from passlib.context import CryptContext
 
-from app.middleware.jwt_manager import JWTManager
+# local modules.
+from app.auth.jwt_manager import JWTManager
+from app.auth.type import (
+    RegisterInput,
+    LoginInput,
+    LoginType
+)
 
 
 hash_pass = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -11,47 +16,16 @@ list_users = [
     {
         "name": "root",
         "email": "root@email.com",
-        "password": hash_pass.hash("root")
+        "password": hash_pass.hash("root"),
+        "roles": ["admin", "user"]
     },
     {
-        "name": "admin",
-        "email": "admin@email.com",
-        "password": hash_pass.hash("admin")
+        "name": "morocco",
+        "email": "morocco@email.com",
+        "password": hash_pass.hash("morocco"),
+        "roles": ["user"]
     }
 ]
-
-
-@strawberry.type
-class UserType:
-    """..."""
-    name: str
-    email: str
-    password: str
-
-
-@strawberry.input
-class RegisterInput:
-    """..."""
-
-    name: str
-    email: str
-    password: str
-
-
-@strawberry.input
-class LoginInput:
-    """..."""
-
-    email: str
-    password: str
-
-
-@strawberry.type
-class LoginType:
-    """..."""
-
-    email: str
-    token: str
 
 
 class AuthenticationService:
@@ -71,14 +45,21 @@ class AuthenticationService:
         if not existing_user:
             raise ValueError("Email not found!")
 
+        stored_password = existing_user.get("password")
+
+        if not stored_password or not isinstance(
+            stored_password, (str, bytes)
+        ):
+            raise ValueError("Invalid password format!")
+
         if not AuthenticationService.pwd_contenxt.verify(
-            login_data.password, existing_user["password"]
+            login_data.password, stored_password
         ):
             raise ValueError("Wrong Password!")
 
-        token = JWTManager.generate_token({"sub": login_data.email})
-
-        JWTManager.decode_jwt(token)
+        # token = JWTManager.generate_token({"sub": login_data.email})
+        token = JWTManager.generate_token(
+            {"sub": login_data.email})
 
         return LoginType(email=login_data.email, token=token)
 
@@ -98,7 +79,8 @@ class AuthenticationService:
         user = {
             "name": user_data.name,
             "email": user_data.email,
-            "password": password
+            "password": password,
+            "roles": ["user"]
         }
         list_users.append(user)
 

@@ -6,14 +6,14 @@ from app.user.type import UserType, UserCreateInput
 
 users: List[UserType] = [
     UserType(
-        id=1,
         name="John",
-        email="a@a.com"
+        email="a@a.com",
+        password="1234"
     ),
     UserType(
-        id=2,
         name="Jane",
-        email="b@b.com"
+        email="b@b.com",
+        password="1234"
     )
 ]
 
@@ -23,12 +23,12 @@ def get_users() -> List[UserType]:
     return users
 
 
-def get_user_by_id(user_id: int) -> UserType:
+def get_user_by_email(email: str) -> UserType:
     """..."""
+
     user_exist = None
     for user in users:
-        print("PRINT:", user.id, user_id)
-        if user.id == user_id:
+        if user.email == email:
             user_exist = user
 
     print("Result", user_exist)
@@ -41,9 +41,9 @@ def get_user_by_id(user_id: int) -> UserType:
 def create_user(user_input: UserCreateInput) -> UserType:
     """...."""
     new_user = UserType(
-        id=len(users) + 1,
         name=user_input.name,
-        email=user_input.email
+        email=user_input.email,
+        password=user_input.password
     )
     users.append(new_user)
 

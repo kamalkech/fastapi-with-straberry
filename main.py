@@ -1,21 +1,20 @@
 """..."""
 
-
-import strawberry
-from strawberry.fastapi import GraphQLRouter
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# strawberry.
+import strawberry
+from strawberry.fastapi import GraphQLRouter
+
+# local modules.
 from app.core.query import Query
 from app.core.mutation import Mutation
 
-schema = strawberry.Schema(query=Query, mutation=Mutation)
-graphql_app = GraphQLRouter[object, object](schema)
-
 app = FastAPI()
 
+# accept sandbox apollo url.
 origins = [
     "https://studio.apollographql.com",
 ]
@@ -28,11 +27,15 @@ app.add_middleware(
 )
 
 
-@app.get("/")
+# Health Check
+@app.get("/health")
 async def root():
     """..."""
-    return {"message": "Hello World!"}
+    return {"message": "OK!"}
 
+# GraphQL Schema and include prefix in router.
+schema = strawberry.Schema(query=Query, mutation=Mutation)
+graphql_app = GraphQLRouter[object, object](schema)
 app.include_router(graphql_app, prefix='/graphql')
 
 if __name__ == "__main__":

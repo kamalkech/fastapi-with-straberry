@@ -2,8 +2,9 @@
 
 import strawberry
 from app.user.mutation import MutationUser
+from app.auth.mutation import MutationAuth
 
 
 @strawberry.type
-class Mutation(MutationUser):
+class Mutation(MutationUser, MutationAuth):
     """..."""

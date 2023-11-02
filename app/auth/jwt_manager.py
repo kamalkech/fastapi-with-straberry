@@ -52,6 +52,5 @@ class JWTManager:
     def decode_jwt(token: str):
         """..."""
 
-        decode_token = jwt.decode(
+        return jwt.decode(
             token, SECRET_KEY, algorithms=[ALGORITHM])
-        print("decode_token", decode_token)
