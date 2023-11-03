@@ -19,10 +19,3 @@ class LoginInput:
     email: str
     password: str
 
-
-@strawberry.type
-class LoginType:
-    """..."""
-
-    email: str
-    token: str

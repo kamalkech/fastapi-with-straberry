@@ -1,7 +1,7 @@
 """..."""
 
 from typing import List
-from app.article.type import ArticleType
+from app.article.model import ArticleType
 
 
 class UserService:

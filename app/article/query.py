@@ -4,7 +4,7 @@ from typing import List
 import strawberry
 
 from app.article.service import UserService
-from app.article.type import ArticleType
+from app.article.model import ArticleType
 
 
 @strawberry.type

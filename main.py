@@ -31,6 +31,7 @@ app.add_middleware(
 @app.get("/health")
 async def root():
     """..."""
+
     return {"message": "OK!"}
 
 # GraphQL Schema and include prefix in router.

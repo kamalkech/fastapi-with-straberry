@@ -3,11 +3,9 @@ import strawberry
 
 # local modules.
 from app.auth.jwt_bearer import IsAuthenticated
-from app.service.authentication import (
-    AuthenticationService,
-    LoginInput,
-    LoginType
-)
+from app.auth.model import LoginType
+from app.auth.dto import LoginInput
+from app.auth.service import AuthenticationService
 
 
 @strawberry.type

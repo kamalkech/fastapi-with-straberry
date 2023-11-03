@@ -10,9 +10,3 @@ class UserType:
     password: str
 
 
-@strawberry.input
-class UserCreateInput:
-    """..."""
-    name: str
-    email: str
-    password: str
