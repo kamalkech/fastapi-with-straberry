@@ -26,12 +26,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Health Check
+
 @app.get("/health")
 async def root():
     """..."""
 
     return {"message": "OK!"}
+
 
 # GraphQL Schema and include prefix in router.
 schema = strawberry.Schema(query=Query, mutation=Mutation)
