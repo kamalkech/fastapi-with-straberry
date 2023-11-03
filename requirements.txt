@@ -8,3 +8,5 @@ passlib[bcrypt]
 python-multipart
 types-python-jose
 types-passlib
+pydantic-settings
+python-dotenv

@@ -4,10 +4,10 @@ from typing import Optional
 from datetime import datetime, timedelta
 from jose import jwt
 
+from app.config import Settings
 
-SECRET_KEY = "my-secret"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+# access to all env variables.
+config = Settings()
 
 
 class JWTManager:
@@ -22,11 +22,11 @@ class JWTManager:
             expire = datetime.utcnow() + expires_delta
         else:
             expire = datetime.utcnow() + timedelta(
-                minutes=float(ACCESS_TOKEN_EXPIRE_MINUTES)
+                minutes=float(config.ACCESS_TOKEN_EXPIRE_MINUTES)
             )
 
         to_encode.update({"exp": expire})
-        encode_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+        encode_jwt = jwt.encode(to_encode, config.SECRET_KEY, algorithm=config.ALGORITHM)
 
         return encode_jwt
 
@@ -36,7 +36,7 @@ class JWTManager:
 
         try:
             decode_token = jwt.decode(
-                token, SECRET_KEY, algorithms=[ALGORITHM])
+                token, config.SECRET_KEY, algorithms=[config.ALGORITHM])
             current_timestamp = datetime.utcnow().timestamp()
 
             if not decode_token:
@@ -53,4 +53,5 @@ class JWTManager:
         """..."""
 
         return jwt.decode(
-            token, SECRET_KEY, algorithms=[ALGORITHM])
+            token, config.SECRET_KEY, algorithms=[config.ALGORITHM])
+

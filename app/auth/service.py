@@ -33,7 +33,7 @@ class AuthenticationService:
     pwd_contenxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     @staticmethod
-    async def login(login_data: LoginInput):
+    async def login(login_data: LoginInput) -> LoginType:
         """..."""
 
         # check existing user in list_users.
@@ -84,3 +84,4 @@ class AuthenticationService:
         list_users.append(user)
 
         return "successfully registered data!"
+
